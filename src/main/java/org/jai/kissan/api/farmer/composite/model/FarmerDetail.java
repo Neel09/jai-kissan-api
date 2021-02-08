@@ -1,5 +1,6 @@
-package org.jai.kissan.api.farmer.crop.model;
+package org.jai.kissan.api.farmer.composite.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,14 +8,13 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Farmer {
+public class FarmerDetail {
 
-	private String identityCode;
+	private String farmerIdentityCode;
 
-	private String name;
+	private String farmerName;
 	private String address;
 	private String contactNumber;
 
 	private String aadharNumber;
-
 }

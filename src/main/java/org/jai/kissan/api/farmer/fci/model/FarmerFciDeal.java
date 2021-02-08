@@ -19,6 +19,7 @@ public class FarmerFciDeal {
 
     private String farmerIdentityCode;
     private String cropIdentityCode;
+    
     private Double cropTotalQuantity;
     private Double buyingQuantity;
 
