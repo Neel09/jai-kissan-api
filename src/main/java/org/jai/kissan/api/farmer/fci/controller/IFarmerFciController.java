@@ -1,7 +1,5 @@
 package org.jai.kissan.api.farmer.fci.controller;
 
-import java.util.List;
-
 import org.jai.kissan.api.farmer.fci.model.FarmerFciDeal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 @RequestMapping("farmer-fci")
 public interface IFarmerFciController {
 
 	@PostMapping("deal")
-	String createDeal(@RequestBody FarmerFciDeal farmerFciDeal);
+	Mono<FarmerFciDeal> createDeal(@RequestBody FarmerFciDeal farmerFciDeal);
 
 	@PutMapping("buy-deal")
 	void buyDeal(@RequestParam String dealCode, @RequestParam Double buyingRate);
@@ -28,19 +29,19 @@ public interface IFarmerFciController {
 	void updateStatusToReview(@RequestParam String dealCode);
 
 	@GetMapping("new-deals")
-	List<FarmerFciDeal> listAllNewDeals();
+	Flux<FarmerFciDeal> listAllNewDeals();
 
 	@GetMapping("new-deals/{farmerIdentityCode}")
-	List<FarmerFciDeal> listFarmerNewDeals(@PathVariable String farmerIdentityCode);
+	Flux<FarmerFciDeal> listFarmerNewDeals(@PathVariable String farmerIdentityCode);
 
 	@GetMapping("reviewing-deals")
-	List<FarmerFciDeal> listAllReviewingDeals();
+	Flux<FarmerFciDeal> listAllReviewingDeals();
 
 	@GetMapping("reviewing-deals/{farmerIdentityCode}")
-	List<FarmerFciDeal> listAllReviewingDeals(@PathVariable String farmerIdentityCode);
+	Flux<FarmerFciDeal> listAllReviewingDeals(@PathVariable String farmerIdentityCode);
 
-	@GetMapping("active-deals")
-	List<FarmerFciDeal> getFciActiveDealFromFarmerCode(@PathVariable String farmerIdentityCode);
+	@GetMapping("active-deals/{farmerIdentityCode}")
+	Flux<FarmerFciDeal> getFciActiveDealFromFarmerCode(@PathVariable String farmerIdentityCode);
 
 	@DeleteMapping("farmer-deals/{farmerIdentityCode}")
 	void deleteAllFarmerFciDeals(@PathVariable String farmerIdentityCode);
