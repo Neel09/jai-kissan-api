@@ -9,21 +9,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import reactor.core.publisher.Mono;
+
 @RequestMapping("farmer-crop")
 public interface IFarmerCropController {
 
 	@PostMapping("farmer")
-	String doFarmerRegistration(@RequestBody Farmer farmer);
+	Mono<String> doFarmerRegistration(@RequestBody Farmer farmer);
 
 	@PostMapping("crop")
-	String createCrop(@RequestBody Crop crop);
+	Mono<String> createCrop(@RequestBody Crop crop);
 
 	@GetMapping("farmer/{farmerIdentityCode}")
-	Farmer getFarmerDetails(@PathVariable String farmerIdentityCode);
+	Mono<Farmer> getFarmerDetails(@PathVariable String farmerIdentityCode);
 
 	@GetMapping("crop/{cropIdentityCode}")
-	Farmer getCropDetails(@PathVariable String cropIdentityCode);
+	Mono<Crop> getCropDetails(@PathVariable String cropIdentityCode);
 
 	@DeleteMapping("farmer/{farmerIdentityCode}")
-	void deleteFarmer(@PathVariable String farmerIdentityCode);
+	Mono<Void> deleteFarmer(@PathVariable String farmerIdentityCode);
 }

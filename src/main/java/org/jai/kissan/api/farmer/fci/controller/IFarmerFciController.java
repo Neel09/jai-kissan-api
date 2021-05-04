@@ -20,32 +20,38 @@ public interface IFarmerFciController {
 	Mono<FarmerFciDeal> createDeal(@RequestBody FarmerFciDeal farmerFciDeal);
 
 	@PutMapping("buy-deal")
-	void buyDeal(@RequestParam String dealCode, @RequestParam Double buyingRate);
+	Mono<Void> buyDeal(@RequestParam String dealCode, @RequestParam Double buyingRate);
 
 	@PutMapping("quantity")
 	void updateQuantityInDeal(@RequestParam String dealCode, @RequestParam Double quantity);
 
 	@PutMapping("status-to-review")
-	void updateStatusToReview(@RequestParam String dealCode);
+	Mono<Void> updateStatusToReview(@RequestParam String dealCode);
 
 	@GetMapping("new-deals")
 	Flux<FarmerFciDeal> listAllNewDeals();
 
-	@GetMapping("new-deals/{farmerIdentityCode}")
-	Flux<FarmerFciDeal> listFarmerNewDeals(@PathVariable String farmerIdentityCode);
-
 	@GetMapping("reviewing-deals")
 	Flux<FarmerFciDeal> listAllReviewingDeals();
 
+	@GetMapping("new-deals/{farmerIdentityCode}")
+	Flux<FarmerFciDeal> listFarmerNewDeals(@PathVariable String farmerIdentityCode);
+
+	@GetMapping("all-deals/{farmerIdentityCode}")
+	Flux<FarmerFciDeal> listFarmerAllDeals(String farmerIdentityCode);
+
 	@GetMapping("reviewing-deals/{farmerIdentityCode}")
-	Flux<FarmerFciDeal> listAllReviewingDeals(@PathVariable String farmerIdentityCode);
+	Flux<FarmerFciDeal> listFarmerReviewingDeals(@PathVariable String farmerIdentityCode);
+
+	@GetMapping("completed-deals/{farmerIdentityCode}")
+	Flux<FarmerFciDeal> listFarmerCompletedDeals(@PathVariable String farmerIdentityCode);
 
 	@GetMapping("active-deals/{farmerIdentityCode}")
-	Flux<FarmerFciDeal> getFciActiveDealFromFarmerCode(@PathVariable String farmerIdentityCode);
+	Flux<FarmerFciDeal> listFarmerActiveDeals(@PathVariable String farmerIdentityCode);
 
 	@DeleteMapping("farmer-deals/{farmerIdentityCode}")
-	void deleteAllFarmerFciDeals(@PathVariable String farmerIdentityCode);
+	Mono<Void> deleteAllFarmerFciDeals(@PathVariable String farmerIdentityCode);
 
 	@DeleteMapping("fci-deal/{farmerFciDeal}")
-	void deleteFarmerFciDeal(@PathVariable String farmerFciDeal);
+	Mono<Void> deleteFarmerFciDeal(@PathVariable String farmerFciDeal);
 }

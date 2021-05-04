@@ -8,24 +8,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import reactor.core.publisher.Mono;
+
 @RequestMapping("farmer-composite")
 public interface IFarmerCompositeController {
 
+	@PostMapping("farmer-with-fci-deals")
+	public Mono<String> createFarmerAndFciDeal(@RequestBody FarmerComposite farmerComposite);
+
 	@GetMapping("farmer-summary/{farmerIdentityCode}")
-	public FarmerComposite getFarmerSummary(@PathVariable String farmerIdentityCode);
-	
+	public Mono<FarmerComposite> getFarmerSummary(@PathVariable String farmerIdentityCode);
+
 	@GetMapping("farmer-active-fci-deal-summary/{farmerIdentityCode}")
-	public FarmerComposite getFarmerActiveFciSummary(@PathVariable String farmerIdentityCode);
-	
+	public Mono<FarmerComposite> getFarmerActiveFciSummary(@PathVariable String farmerIdentityCode);
+
 	@GetMapping("farmer-reviewing-fci-summary/{farmerIdentityCode}")
-	public FarmerComposite getFarmerReviewingFciSummary(@PathVariable String farmerIdentityCode);
-	
-	@GetMapping("farmer-compelted-fci-summary/{farmerIdentityCode}")
-	public FarmerComposite getFarmerCompletedFciSummary(@PathVariable String farmerIdentityCode);
+	public Mono<FarmerComposite> getFarmerReviewingFciSummary(@PathVariable String farmerIdentityCode);
 
-	@PostMapping("create-farmer-with-fci-deal")
-	public void createFarmerAndFciDeal(@RequestBody FarmerComposite farmerComposite);
+	@GetMapping("farmer-completed-fci-summary/{farmerIdentityCode}")
+	public Mono<FarmerComposite> getFarmerCompletedFciSummary(@PathVariable String farmerIdentityCode);
 
-	@DeleteMapping("delete-farmer/{farmerIdentityCode}")
-	public void deleteFarmer(@PathVariable String farmerIdentityCode);
+	@DeleteMapping("farmer/{farmerIdentityCode}")
+	public Mono<Void> deleteFarmer(@PathVariable String farmerIdentityCode);
 }
